@@ -1,8 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import TodoItem from "./TodoItem";
 
-const TodoList = ({ todos, dispatch }) => {
-  console.log(todos);
+const TodoList = ({ todos, dispatch, loading, error }) => {
   return (
     <Box
       sx={{
@@ -12,13 +11,19 @@ const TodoList = ({ todos, dispatch }) => {
         },
       }}
     >
-      {todos.length ? (
-        todos.map((todo) => (
-          <TodoItem dispatch={dispatch} key={todo.id} todo={todo} />
-        ))
-      ) : (
-        <Typography variant="h5">No todos to display</Typography>
-      )}
+      {loading && <Typography variant="h5">Loading...</Typography>}
+
+      {error && <Typography variant="h5">Error...</Typography>}
+
+      {!loading &&
+        !error &&
+        (!!todos.length ? (
+          todos.map((todo) => (
+            <TodoItem dispatch={dispatch} key={todo.id} todo={todo} />
+          ))
+        ) : (
+          <Typography variant="h5">No todos to display</Typography>
+        ))}
     </Box>
   );
 };
