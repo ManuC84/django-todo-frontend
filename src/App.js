@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { Typography } from "@mui/material";
+import { useEffect, useReducer } from "react";
+import "./App.css";
+import TodoInput from "./components/TodoInput";
+import TodoList from "./components/TodoList";
+import { todosReducer } from "./reducers/todosReducer";
+import { fetchTodos } from "./services/api";
 
 function App() {
+  const [state, dispatch] = useReducer(todosReducer, []);
+
+  useEffect(() => {
+    fetchTodos().then((todos) =>
+      dispatch({ type: "GET_TODOS", payload: todos })
+    );
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Typography variant="h3">Todo app</Typography>
+      <TodoInput dispatch={dispatch} />
+      <TodoList dispatch={dispatch} todos={state} />
     </div>
   );
 }
