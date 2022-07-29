@@ -1,11 +1,13 @@
+const apiUrl = process.env.REACT_APP_API_URL;
+
 export function fetchTodos() {
-  return fetch("http://localhost:8000/api/")
+  return fetch(apiUrl)
     .then((response) => response.json())
     .then((data) => data);
 }
 
 export function addTodo(todo) {
-  return fetch("http://localhost:8000/api/", {
+  return fetch(apiUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -17,13 +19,13 @@ export function addTodo(todo) {
 }
 
 export function deleteTodo(id) {
-  return fetch(`http://localhost:8000/api/${id}/`, {
+  return fetch(`${apiUrl}${id}/`, {
     method: "DELETE",
   });
 }
 
 export function toggleTodo(todo, completed) {
-  return fetch(`http://localhost:8000/api/${todo.id}/`, {
+  return fetch(`${apiUrl}${todo.id}/`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
