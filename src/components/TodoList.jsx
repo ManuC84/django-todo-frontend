@@ -4,7 +4,14 @@ import TodoItem from "./TodoItem";
 const TodoList = ({ todos, dispatch }) => {
   console.log(todos);
   return (
-    <Box sx={{ width: "50%" }}>
+    <Box
+      sx={{
+        width: {
+          xs: "100%",
+          sm: "50%",
+        },
+      }}
+    >
       {todos.length ? (
         todos.map((todo) => (
           <TodoItem dispatch={dispatch} key={todo.id} todo={todo} />
